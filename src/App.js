@@ -6,22 +6,10 @@ import React, { useRef } from 'react';
 
 
 
-
-async function doProc(refImg) {
-  // Load the model.
-  const net = await mobilenet.load();
-  console.log('Successfully loaded model');
-
-  // Make a prediction through the model on our image.
-  const imgEl = refImg.current;
-  const result = await net.classify(imgEl);
-  console.log(result);
-}
-
 function App() {
   const camera = useRef();
   const figures = useRef();
-  const refImg = useRef();
+
   const btnA = useRef();
   const btnB = useRef();
   const btnC = useRef();
@@ -58,7 +46,7 @@ function App() {
       img.dispose();
     };
     const exportProc = () => {
-      
+
       let dataset = classifier.getClassifierDataset()
       var datasetObj = {}
       Object.keys(dataset).forEach((key) => {
@@ -101,8 +89,8 @@ function App() {
     }
   };
   React.useEffect(() => {
-    if (camera.current) run();
-  }, camera);
+    if (camera.current) { run(); }
+  }, [camera]);
 
   return (
     <div className="App">
